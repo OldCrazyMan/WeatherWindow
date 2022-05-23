@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Weather" translatesAutoresizingMaskIntoConstraints="NO" id="Xt0-CG-0bx">
+                                <rect key="frame" x="0.0" y="180" width="414" height="536"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Xt0-CG-0bx" secondAttribute="height" multiplier="207:268" id="QG3-KS-4VM"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="0.97232741119999999" green="0.9803507924" blue="0.9845660329" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Xt0-CG-0bx" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Hcc-Ku-Cdh"/>
+                            <constraint firstItem="Xt0-CG-0bx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="136" id="JpK-eh-Hyu"/>
+                            <constraint firstItem="Xt0-CG-0bx" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="fdd-Sq-YCN"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Weather" width="566" height="590"/>
+    </resources>
+</document>
