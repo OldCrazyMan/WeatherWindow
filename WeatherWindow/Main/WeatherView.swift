@@ -46,6 +46,7 @@ class WeatherView: UIScrollView {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
         label.text = " "
+        label.addShadowOnView()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -70,6 +71,7 @@ class WeatherView: UIScrollView {
         label.numberOfLines = 2
         label.text = " "
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.addShadowOnView()
         return label
     }()
     
@@ -81,6 +83,7 @@ class WeatherView: UIScrollView {
         label.numberOfLines = 2
         label.text = " "
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.addShadowOnView()
         return label
     }()
     
@@ -212,7 +215,9 @@ class WeatherView: UIScrollView {
         
         NSLayoutConstraint.activate([
             cityLabel.topAnchor.constraint(equalTo: backgroundView.safeAreaLayoutGuide.topAnchor, constant: 30),
-            cityLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
+            cityLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            cityLabel.leftAnchor.constraint(equalTo: backgroundView.leftAnchor, constant: 10),
+            cityLabel.rightAnchor.constraint(equalTo: backgroundView.rightAnchor, constant: -10)
         ])
         
         NSLayoutConstraint.activate([

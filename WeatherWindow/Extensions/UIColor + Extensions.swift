@@ -22,6 +22,5 @@ extension UIColor {
     static let specialNight = #colorLiteral(red: 0.040927787, green: 0.1889681057, blue: 0.387279488, alpha: 1)
     
     static let specialBlack = #colorLiteral(red: 0.2156862745, green: 0.2156862745, blue: 0.2156862745, alpha: 1)
-    static let specialBackground = #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
     static let specialIcon = #colorLiteral(red: 0.9723274112, green: 0.9803507924, blue: 0.9845660329, alpha: 1)
 }

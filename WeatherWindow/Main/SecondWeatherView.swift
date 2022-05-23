@@ -61,6 +61,7 @@ class SecondWeatherView: UIView {
         label.textAlignment = .center
         label.text = "Для поиска"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.addShadowOnView()
         return label
     }()
     
@@ -71,6 +72,7 @@ class SecondWeatherView: UIView {
         label.textAlignment = .center
         label.text = "нажмите на иконку "
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.addShadowOnView()
         return label
     }()
     
@@ -81,6 +83,7 @@ class SecondWeatherView: UIView {
         label.textAlignment = .center
         label.text = "вверху экрана"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.addShadowOnView()
         return label
     }()
     
@@ -192,7 +195,7 @@ class SecondWeatherView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            weatherImageView.bottomAnchor.constraint(equalTo: cityLabel.topAnchor, constant: 10),
+            weatherImageView.bottomAnchor.constraint(equalTo: cityLabel.topAnchor, constant: 20),
             weatherImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             weatherImageView.widthAnchor.constraint(equalToConstant: 150),
             weatherImageView.heightAnchor.constraint(equalToConstant: 150)
@@ -200,7 +203,9 @@ class SecondWeatherView: UIView {
         
         NSLayoutConstraint.activate([
             cityLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            cityLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            cityLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            cityLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+            cityLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10)
         ])
         
         NSLayoutConstraint.activate([
