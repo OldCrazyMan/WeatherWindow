@@ -1,5 +1,5 @@
 # WeatherWindow - Test task Mobile (Swift)
-- Akhmetov Timur
+
 
 Displays Live Weather Data with OpenWeather API:
 
