@@ -19,7 +19,7 @@ extension UIColor {
     static let specialWindNight = #colorLiteral(red: 0.3755683303, green: 0.5168568492, blue: 0.5839539766, alpha: 1)
     
     static let specialThunderstorm = #colorLiteral(red: 0.1471719742, green: 0.3202107251, blue: 0.5486032367, alpha: 1)
-    static let specialNight = #colorLiteral(red: 0.040927787, green: 0.1889681057, blue: 0.387279488, alpha: 1)
+    static let specialNight = #colorLiteral(red: 0.03390504047, green: 0.1409447491, blue: 0.2947950363, alpha: 1)
     
     static let specialBlack = #colorLiteral(red: 0.2156862745, green: 0.2156862745, blue: 0.2156862745, alpha: 1)
     static let specialIcon = #colorLiteral(red: 0.9723274112, green: 0.9803507924, blue: 0.9845660329, alpha: 1)

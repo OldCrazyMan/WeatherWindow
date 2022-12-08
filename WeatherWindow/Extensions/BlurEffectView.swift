@@ -12,7 +12,7 @@ class BlurEffect: UIVisualEffectView{
     
     override init(effect: UIVisualEffect?) {
         super.init(effect: UIBlurEffect(style: .dark))
-        self.layer.opacity = 0.6
+        self.layer.opacity = 0.4
         self.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.translatesAutoresizingMaskIntoConstraints = false
     }

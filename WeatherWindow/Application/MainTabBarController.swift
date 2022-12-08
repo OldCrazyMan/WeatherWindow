@@ -8,7 +8,7 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,8 +18,8 @@ class MainTabBarController: UITabBarController {
     
     private func setupTabBar() {
         tabBar.backgroundColor = .clear
-        tabBar.tintColor = .specialNight
-        tabBar.alpha = 0.8
+        tabBar.tintColor = .black
+        tabBar.alpha = 0.3
         tabBar.unselectedItemTintColor = .specialGray
         tabBar.layer.borderColor = UIColor.specialGray.cgColor
         tabBar.layer.borderWidth = 0.2

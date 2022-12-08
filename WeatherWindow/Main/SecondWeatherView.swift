@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 protocol SearchProtocol: AnyObject {
     func searchButtonTapped()
@@ -14,10 +15,15 @@ protocol SearchProtocol: AnyObject {
 
 class SecondWeatherView: UIView {
     
+    private var player : AVPlayer!
+    private var playerLayer : AVPlayerLayer?
+    private var playerLooper: AVPlayerLooper?
+    private var playerItem: AVPlayerItem?
+    
     private var backgroundView: UIView = {
         let view = UIView()
+        view.alpha = 0
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .specialDay
         return view
     }()
     
@@ -33,7 +39,7 @@ class SecondWeatherView: UIView {
     private var cityLabel: UILabel = {
         let label = UILabel()
         label.font = .RobotoThinItalic48()
-        label.textColor = .specialText
+        label.textColor = .specialGray
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
@@ -45,45 +51,45 @@ class SecondWeatherView: UIView {
     private var tempLabel: UILabel = {
         let label = UILabel()
         label.font = .robotoBold48()
-        label.textColor = .specialText
+        label.textColor = .specialGray
         label.textAlignment = .center
         label.minimumScaleFactor = 0.5
         label.text = " "
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.addShadowOnView()
+        
         return label
     }()
     
     private var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .RobotoThinItalic22()
-        label.textColor = .specialText
+        label.font = .RobotoThinItalic24()
+        label.textColor = .specialGray
         label.textAlignment = .center
         label.text = "Для поиска"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.addShadowOnView()
+      
         return label
     }()
     
     private var feelsLikeLabel: UILabel = {
         let label = UILabel()
-        label.font = .RobotoThinItalic22()
-        label.textColor = .specialText
+        label.font = .RobotoThinItalic24()
+        label.textColor = .specialGray
         label.textAlignment = .center
         label.text = "нажмите на иконку "
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.addShadowOnView()
+       
         return label
     }()
     
     private var minMaxLabel: UILabel = {
         let label = UILabel()
-        label.font = .RobotoThinItalic22()
-        label.textColor = .specialText
+        label.font = .RobotoThinItalic24()
+        label.textColor = .specialGray
         label.textAlignment = .center
-        label.text = "вверху экрана"
+        label.text = "сверху экрана"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.addShadowOnView()
+        
         return label
     }()
     
@@ -91,6 +97,13 @@ class SecondWeatherView: UIView {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addShadowOnView()
+        return view
+    }()
+    
+    private var videoView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -116,15 +129,18 @@ class SecondWeatherView: UIView {
     //MARK: - SetupViews
     
     private func setupViews() {
-        addSubview(backgroundView)
+        backgroundColor = .white
         
-        backgroundView.addSubview(searchButton)
+        addSubview(backgroundView)
+        addSubview(searchButton)
+        
         backgroundView.addSubview(weatherImageView)
-        backgroundView.addSubview(cityLabel)
-        backgroundView.addSubview(tempLabel)
-        backgroundView.addSubview(descriptionLabel)
-        backgroundView.addSubview(minMaxLabel)
-        backgroundView.addSubview(feelsLikeLabel)
+        addSubview(cityLabel)
+        addSubview(tempLabel)
+        addSubview(descriptionLabel)
+        addSubview(minMaxLabel)
+        addSubview(feelsLikeLabel)
+        backgroundView.addSubview(videoView)
     }
     
     private func networkManager() {
@@ -143,8 +159,15 @@ class SecondWeatherView: UIView {
     func setParameters(weatherModel: CurrentWeather) {
         DispatchQueue.main.async {
             
+            UIView.animate(withDuration: 0.8,
+                           delay: 0.0,
+                           options: [.allowUserInteraction], animations:
+                            { () -> Void in
+                self.backgroundView.alpha = 1 })
+            
             self.setBackgroundColor(icon: weatherModel.icon)
             self.backgroundColor = self.backgroundView.backgroundColor
+            self.configWeatherVideo(icon: weatherModel.icon)
             self.descriptionLabel.text = weatherModel.weatherDescription.capitalizingFirstLetter()
             self.minMaxLabel.text = "Мин.:\(weatherModel.tempMin)º, мaкс.:\(weatherModel.tempMax)º"
             self.weatherImageView.image = UIImage(named: weatherModel.icon)
@@ -152,6 +175,24 @@ class SecondWeatherView: UIView {
             self.tempLabel.text = "\(weatherModel.temperatureString)°C"
             self.feelsLikeLabel.text = "Ощущается как \(weatherModel.feelsLikeTemperatureString)"
         }
+    }
+    
+    private func configWeatherVideo(icon: String){
+        
+        guard let path = Bundle.main.path(forResource: icon, ofType:"mp4") else { return }
+        player = AVQueuePlayer()
+        playerLayer = AVPlayerLayer(player: self.player)
+        playerItem = AVPlayerItem(url: URL(fileURLWithPath: path))
+        playerLayer!.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        playerLooper = AVPlayerLooper(player: self.player as! AVQueuePlayer, templateItem: self.playerItem!)
+        
+        videoView.layer.addSublayer(self.playerLayer!)
+        self.playerLayer?.frame = self.videoView.bounds
+        self.player.play()
+        UIView.animate(withDuration: 1, delay: 0.3, options: [.allowUserInteraction], animations:
+                        { () -> Void in
+            self.videoView.alpha = 0.75
+        })
     }
     
     private func setBackgroundColor(icon: String){
@@ -171,7 +212,7 @@ class SecondWeatherView: UIView {
         case "50n":
             backgroundView.backgroundColor = .specialWindNight
         default:
-            print("error")
+            backgroundView.backgroundColor = .specialDay
         }
     }
     
@@ -179,56 +220,48 @@ class SecondWeatherView: UIView {
     
     private func setContraints() {
         
-        NSLayoutConstraint.activate([
-            backgroundView.topAnchor.constraint(equalTo: topAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            backgroundView.heightAnchor.constraint(equalTo: heightAnchor),
-            backgroundView.widthAnchor.constraint(equalTo: widthAnchor),
-        ])
         backgroundView.contentHuggingPriority(for: .vertical)
         
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
             searchButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30),
-            searchButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            searchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             searchButton.widthAnchor.constraint(equalToConstant: 70),
-            searchButton.heightAnchor.constraint(equalToConstant: 70)
-        ])
-        
-        NSLayoutConstraint.activate([
+            searchButton.heightAnchor.constraint(equalToConstant: 70),
+            
+            videoView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
+            videoView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+            videoView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
+            videoView.heightAnchor.constraint(equalToConstant: 230),
+       
             weatherImageView.bottomAnchor.constraint(equalTo: cityLabel.topAnchor, constant: 20),
             weatherImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             weatherImageView.widthAnchor.constraint(equalToConstant: 150),
-            weatherImageView.heightAnchor.constraint(equalToConstant: 150)
-        ])
+            weatherImageView.heightAnchor.constraint(equalToConstant: 150),
         
-        NSLayoutConstraint.activate([
-            cityLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            cityLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            cityLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
-            cityLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10)
-        ])
+            cityLabel.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
+            cityLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            cityLabel.leftAnchor.constraint(equalTo: backgroundView.leftAnchor, constant: 10),
+            cityLabel.rightAnchor.constraint(equalTo: backgroundView.rightAnchor, constant: -10),
         
-        NSLayoutConstraint.activate([
             tempLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 5),
             tempLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            tempLabel.widthAnchor.constraint(equalToConstant: 200)
-        ])
-        
-        NSLayoutConstraint.activate([
+            tempLabel.widthAnchor.constraint(equalToConstant: 200),
+
             descriptionLabel.topAnchor.constraint(equalTo: tempLabel.bottomAnchor, constant: 5),
-            descriptionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 30)
-        ])
-        
-        NSLayoutConstraint.activate([
+            descriptionLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 30),
+       
             feelsLikeLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
-            feelsLikeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            feelsLikeLabel.heightAnchor.constraint(equalToConstant: 30)
-        ])
-        
-        NSLayoutConstraint.activate([
+            feelsLikeLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            feelsLikeLabel.heightAnchor.constraint(equalToConstant: 30),
+            
             minMaxLabel.topAnchor.constraint(equalTo: feelsLikeLabel.bottomAnchor, constant: 10),
-            minMaxLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            minMaxLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             minMaxLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
     }

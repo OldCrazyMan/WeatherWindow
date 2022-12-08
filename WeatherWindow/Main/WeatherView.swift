@@ -7,14 +7,19 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class WeatherView: UIScrollView {
     
+    private var player : AVPlayer!
+    private var playerLayer : AVPlayerLayer?
+    private var playerLooper: AVPlayerLooper?
+    private var playerItem: AVPlayerItem?
+    
     private var backgroundView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.alpha = 0
-        view.backgroundColor = .specialDay
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -87,6 +92,13 @@ class WeatherView: UIScrollView {
         return label
     }()
     
+    private var videoView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private var hourlyCollectionView = HourlyCollectionView()
     private var dailyTableView = DailyTableView()
     
@@ -112,7 +124,7 @@ class WeatherView: UIScrollView {
         addSubview(weatherImageView)
         addSubview(loadingLabel)
         addSubview(backgroundView)
-        
+        backgroundView.addSubview(videoView)
         backgroundView.addSubview(cityLabel)
         backgroundView.addSubview(tempLabel)
         backgroundView.addSubview(descriptionLabel)
@@ -131,7 +143,7 @@ class WeatherView: UIScrollView {
     //MARK: - SetParameters
     
     func setParameters(weatherModel: CurrentWeatherViewModel) {
-        
+
         DispatchQueue.main.async {
             self.loadingLabel.alpha = 0
             self.weatherImageView.alpha = 0
@@ -144,7 +156,7 @@ class WeatherView: UIScrollView {
             
             self.setBackgroundColor(icon: weatherModel.icon)
             self.backgroundColor = self.backgroundView.backgroundColor
-            
+            self.configWeatherVideo(icon: weatherModel.icon)
             self.cityLabel.text = weatherModel.locality
             self.tempLabel.text = weatherModel.temp
             self.descriptionLabel.text = weatherModel.weatherDescription.capitalizingFirstLetter()
@@ -164,6 +176,24 @@ class WeatherView: UIScrollView {
             self.dailyTableView.setWeather(cells: weatherModel.dailyWeather)
             
         }
+    }
+    
+    private func configWeatherVideo(icon: String){
+        
+        guard let path = Bundle.main.path(forResource: icon, ofType:"mp4") else { return }
+        player = AVQueuePlayer()
+        playerLayer = AVPlayerLayer(player: self.player)
+        playerItem = AVPlayerItem(url: URL(fileURLWithPath: path))
+        playerLayer!.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        playerLooper = AVPlayerLooper(player: self.player as! AVQueuePlayer, templateItem: self.playerItem!)
+        
+        videoView.layer.addSublayer(self.playerLayer!)
+        self.playerLayer?.frame = self.videoView.bounds
+        self.player.play()
+        UIView.animate(withDuration: 1, delay: 0.3, options: [.allowUserInteraction], animations:
+                        { () -> Void in
+            self.videoView.alpha = 0.75
+        })
     }
     
     private func setBackgroundColor(icon: String){
@@ -191,50 +221,44 @@ class WeatherView: UIScrollView {
     
     private func setContraints() {
         
+        backgroundView.contentHuggingPriority(for: .vertical)
+        
         NSLayoutConstraint.activate([
             weatherImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             weatherImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             weatherImageView.heightAnchor.constraint(equalTo: heightAnchor),
             weatherImageView.widthAnchor.constraint(equalTo: widthAnchor),
-        ])
-        
-        NSLayoutConstraint.activate([
+            
             loadingLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 40),
             loadingLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             loadingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             loadingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-        ])
-        
-        NSLayoutConstraint.activate([
+            
             backgroundView.topAnchor.constraint(equalTo: topAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
             backgroundView.heightAnchor.constraint(equalTo: heightAnchor),
             backgroundView.widthAnchor.constraint(equalTo: widthAnchor),
-        ])
-        backgroundView.contentHuggingPriority(for: .vertical)
-        
-        NSLayoutConstraint.activate([
+            
             cityLabel.topAnchor.constraint(equalTo: backgroundView.safeAreaLayoutGuide.topAnchor, constant: 30),
             cityLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             cityLabel.leftAnchor.constraint(equalTo: backgroundView.leftAnchor, constant: 10),
-            cityLabel.rightAnchor.constraint(equalTo: backgroundView.rightAnchor, constant: -10)
-        ])
-        
-        NSLayoutConstraint.activate([
+            cityLabel.rightAnchor.constraint(equalTo: backgroundView.rightAnchor, constant: -10),
+            
             tempLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 10),
-            tempLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
+            tempLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            
             descriptionLabel.topAnchor.constraint(equalTo: tempLabel.bottomAnchor),
             descriptionLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 30)
-        ])
-        
-        NSLayoutConstraint.activate([
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 30),
+            
             maxMinLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor),
             maxMinLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            maxMinLabel.heightAnchor.constraint(equalToConstant: 18)
+            maxMinLabel.heightAnchor.constraint(equalToConstant: 18),
+            
+            videoView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
+            videoView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+            videoView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
+            videoView.heightAnchor.constraint(equalToConstant: 230)
         ])
     }
 }
