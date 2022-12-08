@@ -1,5 +1,4 @@
-# WeatherWindow - Test task Mobile (Swift)
-
+# WeatherWindow
 
 Displays Live Weather Data with OpenWeather API:
 
@@ -8,18 +7,17 @@ Displays Live Weather Data with OpenWeather API:
 + the additional screen displays: detailed information about the weather in any city that you can find using the search.
 
 
-The project uses:
-+ JSON & Codable,
-+ Openweathermap, 
-+ CoreLocation,
-+ Code layout (without storyBoard).
+## The project uses:
++ Json + [Openweathermap](api.openweathermap.org),
++ CoreLocation, AVFoundation
++ Codelayout (without storyBoard).
 
-# Before starting the program: 
- Сheck access to geolocation.
- 
-<img width="250" alt="Снимок экрана 2022-05-23 в 20 57 47" src="https://user-images.githubusercontent.com/95176430/169888850-f6a25c36-7533-4e5b-9ecb-9567267fd994.png"><img width="250" alt="Снимок экрана 2022-05-23 в 20 59 18" src="https://user-images.githubusercontent.com/95176430/169888860-f832323c-9593-4ed9-b7c1-a934483526eb.png">
+## Before starting the program: 
+* Сheck access to geolocation.
 
-<img width="250" alt="Снимок экрана 2022-05-23 в 21 06 46" src="https://user-images.githubusercontent.com/95176430/169889192-f3e96c92-2bb5-4f7a-897c-1c280f3682c2.png"><img width="250" alt="Снимок экрана 2022-05-23 в 20 58 07" src="https://user-images.githubusercontent.com/95176430/169889334-4c641d40-24f2-4848-b1cb-4312765517c4.png">
+## What it looks like:
 
-Note:
-Sorry for the "Hindu" code and structure
+<img width="250" alt="1" src="https://user-images.githubusercontent.com/95176430/206469339-149568e8-fa30-4607-9a38-8fc83e54b27f.png"><img width="250" alt="1" src="https://user-images.githubusercontent.com/95176430/206509350-1629129f-6bac-48e2-a09e-50e14b2100c9.png">
+
+<img width="255" alt="2" src="https://user-images.githubusercontent.com/95176430/206510717-151c7127-cd84-4bac-b2b6-04dca47a9142.png"><img width="250" alt="36" src="https://user-images.githubusercontent.com/95176430/206510050-592b0d1b-dbdd-4fe5-ae36-7e76e9da1a20.png">
+***
