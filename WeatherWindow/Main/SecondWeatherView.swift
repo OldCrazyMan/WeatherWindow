@@ -39,7 +39,7 @@ class SecondWeatherView: UIView {
     private var cityLabel: UILabel = {
         let label = UILabel()
         label.font = .RobotoThinItalic48()
-        label.textColor = .specialGray
+        label.textColor = .specialIcon
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
@@ -51,7 +51,7 @@ class SecondWeatherView: UIView {
     private var tempLabel: UILabel = {
         let label = UILabel()
         label.font = .robotoBold48()
-        label.textColor = .specialGray
+        label.textColor = .specialIcon
         label.textAlignment = .center
         label.minimumScaleFactor = 0.5
         label.text = " "
@@ -63,9 +63,9 @@ class SecondWeatherView: UIView {
     private var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .RobotoThinItalic24()
-        label.textColor = .specialGray
+        label.textColor = .specialIcon
         label.textAlignment = .center
-        label.text = "Для поиска"
+        label.text = "Для ПОИСКА"
         label.translatesAutoresizingMaskIntoConstraints = false
       
         return label
@@ -74,7 +74,7 @@ class SecondWeatherView: UIView {
     private var feelsLikeLabel: UILabel = {
         let label = UILabel()
         label.font = .RobotoThinItalic24()
-        label.textColor = .specialGray
+        label.textColor = .specialIcon
         label.textAlignment = .center
         label.text = "нажмите на иконку "
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +85,7 @@ class SecondWeatherView: UIView {
     private var minMaxLabel: UILabel = {
         let label = UILabel()
         label.font = .RobotoThinItalic24()
-        label.textColor = .specialGray
+        label.textColor = .specialIcon
         label.textAlignment = .center
         label.text = "сверху экрана"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -129,7 +129,7 @@ class SecondWeatherView: UIView {
     //MARK: - SetupViews
     
     private func setupViews() {
-        backgroundColor = .white
+        backgroundColor = .specialWind
         
         addSubview(backgroundView)
         addSubview(searchButton)
