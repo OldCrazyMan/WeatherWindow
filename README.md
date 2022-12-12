@@ -14,7 +14,7 @@ Displays Live Weather Data with OpenWeather API:
 
 ## Before starting the program: 
 * Сheck access to geolocation.
-* Past your apiKey in struck "Api"
+* Past your apiKey in struck "API"
 
 ## What it looks like:
 
