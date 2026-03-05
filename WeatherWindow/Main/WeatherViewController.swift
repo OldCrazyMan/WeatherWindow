@@ -19,45 +19,44 @@ class WeatherViewController: UIViewController, WeatherDisplayLogic {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
         interactor?.requestData(request: .getWeather)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        weatherView.contentSize = CGSize(width:self.view.bounds.width, height: 840)
+        weatherView.contentSize = CGSize(width: view.bounds.width, height: 840)
     }
-    
-    //MARK: - SetupViews
     
     private func setupViews() {
-        let viewController = self
-        
-        let presenter  = WeatherPresenter()
+        let presenter = WeatherPresenter()
         let interactor = WeatherInteractor()
         
-        viewController.interactor = interactor
-        interactor.presenter  = presenter
-        presenter.viewController = viewController
+        self.interactor = interactor
+        interactor.presenter = presenter
+        presenter.viewController = self
         
         view.addSubview(weatherView)
-        weatherView.frame = self.view.frame
+        weatherView.frame = view.frame
     }
     
-    //MARK: - DisplayData
-    
     func displayData(viewModel: WeatherEnum.Model.ViewModel.ViewModelData) {
-        
         switch viewModel {
         case .displayWeather(let currentWeatherViewModel):
             weatherView.setParameters(weatherModel: currentWeatherViewModel)
+            
+        case .displayError(let message):
+            let alert = UIAlertController(
+                title: "Ошибка",
+                message: message,
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
         }
     }
 }

@@ -21,8 +21,6 @@ class WeatherPresenter: WeatherPresentationLogic {
         return dt
     }()
     
-    //MARK: - PresentData
-    
     func presentData(response: WeatherEnum.Model.Response.ResponseType) {
         
         switch response {
@@ -31,57 +29,75 @@ class WeatherPresenter: WeatherPresentationLogic {
             var hourlyCells: [CurrentWeatherViewModel.Hourly] = []
             var dailyCells: [CurrentWeatherViewModel.Daily] = []
             
-            weather.hourly.forEach { hourly in
-                hourlyCells.append(CurrentWeatherViewModel.Hourly.init(dt: formattedDate(dateFormat: "HH",
-                                                                                         date: hourly.dt),
-                                                                       temp: setSign(temp: Int(hourly.temp)),
-                                                                       description: hourly.weather.first!.description,
-                                                                       icon: hourly.weather.first!.icon)) }
-    
-            hourlyCells.removeLast(24)
-            hourlyCells[0].dt = "Cейчас"
-            
-            weather.daily.forEach { daily in
-                dailyCells.append(CurrentWeatherViewModel.Daily.init(dt: formattedDate(dateFormat: "EEEE",
-                                                                                       date: daily.dt),
-                                                                     minTemp: setSign(temp: Int(daily.temp.min)),
-                                                                     maxTemp: setSign(temp: Int(daily.temp.max)),
-                                                                     icon: daily.weather.first!.icon))
+            for hourly in weather.hourly {
+                hourlyCells.append(CurrentWeatherViewModel.Hourly(
+                    dt: formattedDate(dateFormat: "HH", date: hourly.dt),
+                    temp: setSign(temp: Int(hourly.temp)),
+                    description: hourly.weather.first?.description ?? "",
+                    icon: hourly.weather.first?.icon ?? "unknown"
+                ))
             }
             
-            dailyCells[0].dt = "Cегодня"
-            let maxMinTemp = "Мин.: \(dailyCells[0].minTemp), макс.: \(dailyCells[0].maxTemp)"
-            let currentWeather = headerViewModel(weatherModel: weather,
-                                                 hourlyCells: hourlyCells,
-                                                 maxMinTemp: maxMinTemp,
-                                                 dailyCells: dailyCells,
-                                                 locality: locality)
+            if !hourlyCells.isEmpty {
+                if hourlyCells.count > 24 {
+                    hourlyCells = Array(hourlyCells.prefix(24))
+                }
+                hourlyCells[0].dt = "Сейчас"
+            }
             
-            viewController?.displayData(viewModel: .displayWeather(currentWeatherViewModel: currentWeather))
+            for daily in weather.daily {
+                dailyCells.append(CurrentWeatherViewModel.Daily(
+                    dt: formattedDate(dateFormat: "EEEE", date: daily.dt),
+                    minTemp: setSign(temp: Int(daily.temp.min)),
+                    maxTemp: setSign(temp: Int(daily.temp.max)),
+                    icon: daily.weather.first?.icon ?? "unknown"
+                ))
+            }
+            
+            if !dailyCells.isEmpty {
+                dailyCells[0].dt = "Сегодня"
+                let maxMinTemp = "Мин.: \(dailyCells[0].minTemp), макс.: \(dailyCells[0].maxTemp)"
+                
+                let currentWeather = headerViewModel(
+                    weatherModel: weather,
+                    hourlyCells: hourlyCells,
+                    maxMinTemp: maxMinTemp,
+                    dailyCells: dailyCells,
+                    locality: locality
+                )
+                
+                viewController?.displayData(viewModel: .displayWeather(currentWeatherViewModel: currentWeather))
+            }
+            
+        case .presentError(let message):
+            viewController?.displayData(viewModel: .displayError(message))
         }
     }
     
-    private func formattedDate(dateFormat: String, date: Double) -> String{
+    private func formattedDate(dateFormat: String, date: Double) -> String {
         dateFormatter.dateFormat = dateFormat
         let currentDate = Date(timeIntervalSince1970: date)
-        let dateTitle = dateFormatter.string(from: currentDate).capitalizingFirstLetter()
-        return dateTitle
+        return dateFormatter.string(from: currentDate).capitalizingFirstLetter()
     }
     
-    private func setSign(temp: Int) -> String{
-        var currentTemp: String = ""
-        guard temp >= 1 else { currentTemp = "\(temp)º"; return currentTemp }
-        currentTemp = "+\(temp)º"
-        return currentTemp
+    private func setSign(temp: Int) -> String {
+        guard temp >= 1 else { return "\(temp)º" }
+        return "+\(temp)º"
     }
     
-    private func headerViewModel(weatherModel: WeatherResponse, hourlyCells: [CurrentWeatherViewModel.Hourly], maxMinTemp: String, dailyCells: [CurrentWeatherViewModel.Daily], locality: String) -> CurrentWeatherViewModel{
-        return CurrentWeatherViewModel.init(locality: locality,
-                                            temp: setSign(temp: Int(weatherModel.current.temp)),
-                                            weatherDescription: weatherModel.current.weather.first?.description ?? "null",
-                                            icon: weatherModel.current.weather.first?.icon ?? "unknown",
-                                            hourlyWeather: hourlyCells,
-                                            maxMinTemp: maxMinTemp,
-                                            dailyWeather: dailyCells)
+    private func headerViewModel(weatherModel: WeatherResponse,
+                                 hourlyCells: [CurrentWeatherViewModel.Hourly],
+                                 maxMinTemp: String,
+                                 dailyCells: [CurrentWeatherViewModel.Daily],
+                                 locality: String) -> CurrentWeatherViewModel {
+        return CurrentWeatherViewModel(
+            locality: locality,
+            temp: setSign(temp: Int(weatherModel.current.temp)),
+            weatherDescription: weatherModel.current.weather.first?.description ?? "",
+            icon: weatherModel.current.weather.first?.icon ?? "unknown",
+            hourlyWeather: hourlyCells,
+            maxMinTemp: maxMinTemp,
+            dailyWeather: dailyCells
+        )
     }
 }

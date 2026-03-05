@@ -20,7 +20,8 @@ class SecondWeatherViewController: UIViewController {
     
     private func setupViews() {
         view.addSubview(weatherView)
-        weatherView.frame = self.view.frame
+        weatherView.frame = view.frame
+        weatherView.viewController = self
     }
     
     private func setDelegates() {
@@ -32,11 +33,12 @@ class SecondWeatherViewController: UIViewController {
 
 extension SecondWeatherViewController: SearchProtocol {
     func searchButtonTapped() {
-        self.presentSearchAlertConroller(withTitle: "Пожалуйста, введите название города в формате 'Ulyanovsk'",
-                                         message: nil,
-                                         style: .alert) { city in
+        self.presentSearchAlertConroller(
+            withTitle: "Поиск города",
+            message: "Введите название города (например: Moscow)",
+            style: .alert
+        ) { city in
             NetworkManager.shared.fetchCurrentWeather(forRequestType: .cityName(city: city))
         }
     }
 }
-

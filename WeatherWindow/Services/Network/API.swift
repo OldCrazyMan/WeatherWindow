@@ -9,7 +9,7 @@ import Foundation
 
 struct API {
     
-    static let apiKey = "Use your key"
+    static let apiKey = "572dd0ff1b44ab421bfb1af68f95bfbe"
     static let url =
-    "https://api.openweathermap.org/data/2.5/onecall?exclude=minutely&lang=ru&units=metric&appid=926247ac53ed30b659cab42495a479fd&"
+    "https://api.openweathermap.org/data/2.5/onecall?exclude=minutely&lang=ru&units=metric&appid=572dd0ff1b44ab421bfb1af68f95bfbe&"
 }
