@@ -1,24 +1,50 @@
 # WeatherWindow
 
-Displays Live Weather Data with OpenWeather API:
+Weather app with two screens using different APIs.
 
- + the main screen displays: detailed information about the weather in the city (determined using geolocation) from the moment the application is opened the next day (24 hours),
- view the weather for the upcoming week (7 days),
-+ the additional screen displays: detailed information about the weather in any city that you can find using the search.
+---
 
+## 📱 Features
 
-## The project uses:
-+ Json + [Openweathermap](api.openweathermap.org),
-+ CoreLocation, AVFoundation
-+ Codelayout (without storyBoard).
+### Main Screen (WeatherAPI)
+- Current weather in your location (geolocation)
+- Hourly forecast for next 24 hours
+- 3-day daily forecast
+- Dynamic video backgrounds based on weather conditions
 
-## Before starting the program: 
-* Сheck access to geolocation.
-* Past your apiKey in struck "API"
+### Second Screen (OpenWeatherMap)
+- Search weather in any city
+- Current temperature, "feels like", min/max values
+- Weather description with matching video background
+
+---
+
+## 🛠 Tech Stack
+
+- **Swift**, **UIKit** (programmatic UI, no Storyboards)
+- **WeatherAPI.com** + **OpenWeatherMap** API
+- **CoreLocation**, **AVFoundation**
+- **JSON**, **URLSession**
+
+---
+
+## 🚀 Before Running
+
+- Allow geolocation access when prompted
+- API keys are already included — no setup required
+
+---
+
+## 📦 Requirements
+
+- iOS 15.0+
+- Xcode 14+
 
 ## What it looks like:
 
-<img width="250" alt="1" src="https://user-images.githubusercontent.com/95176430/206469339-149568e8-fa30-4607-9a38-8fc83e54b27f.png"><img width="250" alt="1" src="https://user-images.githubusercontent.com/95176430/206509350-1629129f-6bac-48e2-a09e-50e14b2100c9.png">
+<img width="250" alt="1" src="https://github.com/user-attachments/assets/3a73a8fe-57cb-47c3-8c82-9ab0b9569d77"><img width="250" alt="1" src="https://github.com/user-attachments/assets/bff0233d-a50d-4c9c-951b-d9201eecfe53">
 
-<img width="255" alt="2" src="https://user-images.githubusercontent.com/95176430/206510717-151c7127-cd84-4bac-b2b6-04dca47a9142.png"><img width="250" alt="36" src="https://user-images.githubusercontent.com/95176430/206510050-592b0d1b-dbdd-4fe5-ae36-7e76e9da1a20.png">
-***
+<img width="255" alt="1" src="https://github.com/user-attachments/assets/d9fd7572-a386-48e4-8211-c2599caa11b5"><img width="255" alt="1" src="https://github.com/user-attachments/assets/96698c72-c85a-4e5b-ac75-f33707559d03">
+
+
+
