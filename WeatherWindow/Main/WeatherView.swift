@@ -25,12 +25,12 @@ class WeatherView: UIScrollView {
     
     private var loadingLabel: UILabel = {
         let label = UILabel()
-        label.font = .RobotoThinItalic48()
+        label.font = .RobotoThinItalic(48)
         label.textColor = .specialGray
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
-        label.text = "Пожалуйста, подождите..."
+        label.text = "Загрузка..."
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,7 +45,7 @@ class WeatherView: UIScrollView {
     
     private var cityLabel: UILabel = {
         let label = UILabel()
-        label.font = .RobotoThinItalic48()
+        label.font = .RobotoThinItalic(48)
         label.textColor = .specialText
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
@@ -58,7 +58,7 @@ class WeatherView: UIScrollView {
     
     private var tempLabel: UILabel = {
         let label = UILabel()
-        label.font = .robotoBold48()
+        label.font = .robotoBold(72)
         label.textColor = .specialText
         label.textAlignment = .center
         label.minimumScaleFactor = 0.5
@@ -70,7 +70,7 @@ class WeatherView: UIScrollView {
     
     private var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .RobotoThinItalic22()
+        label.font = .RobotoThinItalic(25)
         label.textColor = .specialText
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -82,7 +82,7 @@ class WeatherView: UIScrollView {
     
     private var maxMinLabel: UILabel = {
         let label = UILabel()
-        label.font = .RobotoThinItalic22()
+        label.font = .RobotoThinItalic(25)
         label.textColor = .specialText
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -169,10 +169,11 @@ class WeatherView: UIScrollView {
             
             self.hourlyCollectionView.setWeather(cells: weatherModel.hourlyWeather)
             
+            let safeAreaWidth = self.safeAreaLayoutGuide.layoutFrame.width
             self.dailyTableView.frame = CGRect(x: 10,
-                                               y: self.hourlyCollectionView.frame.maxY,
-                                               width: self.frame.width - 20,
-                                               height: DailyTableView.cellHeight * 8)
+                                               y: self.hourlyCollectionView.frame.maxY + 20,
+                                               width: safeAreaWidth - 20,
+                                               height: DailyTableView.cellHeight * 3)
             self.dailyTableView.setWeather(cells: weatherModel.dailyWeather)
             
         }
@@ -239,7 +240,7 @@ class WeatherView: UIScrollView {
             backgroundView.heightAnchor.constraint(equalTo: heightAnchor),
             backgroundView.widthAnchor.constraint(equalTo: widthAnchor),
             
-            cityLabel.topAnchor.constraint(equalTo: backgroundView.safeAreaLayoutGuide.topAnchor, constant: 30),
+            cityLabel.topAnchor.constraint(equalTo: backgroundView.safeAreaLayoutGuide.topAnchor, constant: 80),
             cityLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             cityLabel.leftAnchor.constraint(equalTo: backgroundView.leftAnchor, constant: 10),
             cityLabel.rightAnchor.constraint(equalTo: backgroundView.rightAnchor, constant: -10),
@@ -251,7 +252,7 @@ class WeatherView: UIScrollView {
             descriptionLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            maxMinLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor),
+            maxMinLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
             maxMinLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             maxMinLabel.heightAnchor.constraint(equalToConstant: 18),
             

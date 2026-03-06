@@ -26,12 +26,12 @@ class NetworkService: NetworkServiceProtocol {
     private let baseURL = "http://api.weatherapi.com/v1"
     
     func fetchCurrentWeather(lat: Double, lon: Double) async throws -> WeatherModels.CurrentWeatherResponse {
-        let endpoint = "\(baseURL)/current.json?key=\(apiKey)&q=\(lat),\(lon)"
+        let endpoint = "\(baseURL)/forecast.json?key=\(apiKey)&q=\(lat),\(lon)&days=7&lang=ru"
         return try await request(endpoint)
     }
     
     func fetchForecast(lat: Double, lon: Double) async throws -> WeatherModels.ForecastResponse {
-        let endpoint = "\(baseURL)/forecast.json?key=\(apiKey)&q=\(lat),\(lon)&days=7"
+        let endpoint = "\(baseURL)/forecast.json?key=\(apiKey)&q=\(lat),\(lon)&days=3&lang=ru"
         return try await request(endpoint)
     }
     

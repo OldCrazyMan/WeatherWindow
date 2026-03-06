@@ -12,7 +12,7 @@ class DailyTableView: UITableView, UITableViewDataSource, UITableViewDelegate{
     
     var cells: [CurrentWeatherViewModel.Daily]?
     
-    static let cellHeight: CGFloat = 45
+    static let cellHeight: CGFloat = 65
     
     //MARK: - Init
     
@@ -21,10 +21,10 @@ class DailyTableView: UITableView, UITableViewDataSource, UITableViewDelegate{
         
         delegate = self
         dataSource = self
-        backgroundColor = .none
+        backgroundColor = .clear
         isScrollEnabled = false
         allowsSelection = false
-    
+        
         register(DailyTableViewCell.self, forCellReuseIdentifier: DailyTableViewCell.reuseId)
     }
     

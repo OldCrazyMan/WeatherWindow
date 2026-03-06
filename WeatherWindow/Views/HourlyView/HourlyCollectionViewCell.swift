@@ -16,7 +16,7 @@ class HourlyCollectionViewCell: UICollectionViewCell{
     
     private var dateLabel: UILabel = {
         let label = UILabel()
-        label.font = .RobotoThinItalic18()
+        label.font = .RobotoThinItalic(25)
         label.textAlignment = .center
         label.textColor = .specialText
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +32,7 @@ class HourlyCollectionViewCell: UICollectionViewCell{
     private var tempLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .robotoBold20()
+        label.font = .robotoBold(25)
         label.textAlignment = .center
         label.textColor = .specialText
         return label
@@ -71,8 +71,16 @@ class HourlyCollectionViewCell: UICollectionViewCell{
     
     func configureCell(data: CurrentWeatherViewModel.Hourly) {
         dateLabel.text = data.dt
-        weatherImageView.image = UIImage(named: data.icon)
         tempLabel.text = data.temp
+        
+        if let image = UIImage(named: data.icon) {
+            weatherImageView.image = image
+        } else {
+            // Логируем отсутствующие иконки для отладки
+            print("⚠️ Иконка не найдена: \(data.icon), ставим заглушку")
+            weatherImageView.image = UIImage(systemName: "questionmark.circle.fill")
+            weatherImageView.tintColor = .gray
+        }
     }
     
     //MARK: - SetConstraints

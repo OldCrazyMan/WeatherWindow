@@ -48,7 +48,7 @@ class WeatherInteractor: NSObject, WeatherBusinessLogic, CLLocationManagerDelega
         guard let currentLocation = locationManager.location else { return }
         
         geocoder.reverseGeocodeLocation(currentLocation, preferredLocale: Locale.init(identifier: "ru_RU")) { placemarks, error in
-            if let error = error {
+            if error != nil {
                 self.presenter?.presentData(response: .presentError("Ошибка определения города"))
                 return
             }
@@ -130,35 +130,45 @@ class WeatherInteractor: NSObject, WeatherBusinessLogic, CLLocationManagerDelega
     }
     
     private func mapIcon(_ iconUrl: String) -> String {
-        if iconUrl.contains("113") { return iconUrl.contains("day") ? "01d" : "01n" }
-        if iconUrl.contains("116") { return iconUrl.contains("day") ? "02d" : "02n" }
-        if iconUrl.contains("119") { return iconUrl.contains("day") ? "03d" : "03n" }
-        if iconUrl.contains("122") { return iconUrl.contains("day") ? "04d" : "04n" }
-        if iconUrl.contains("176") { return iconUrl.contains("day") ? "09d" : "09n" }
-        if iconUrl.contains("293") { return iconUrl.contains("day") ? "10d" : "10n" }
-        if iconUrl.contains("296") { return iconUrl.contains("day") ? "10d" : "10n" }
-        if iconUrl.contains("299") { return iconUrl.contains("day") ? "10d" : "10n" }
-        if iconUrl.contains("302") { return iconUrl.contains("day") ? "10d" : "10n" }
-        if iconUrl.contains("305") { return iconUrl.contains("day") ? "10d" : "10n" }
-        if iconUrl.contains("308") { return iconUrl.contains("day") ? "10d" : "10n" }
-        if iconUrl.contains("311") { return iconUrl.contains("day") ? "09d" : "09n" }
-        if iconUrl.contains("314") { return iconUrl.contains("day") ? "09d" : "09n" }
-        if iconUrl.contains("317") { return iconUrl.contains("day") ? "09d" : "09n" }
-        if iconUrl.contains("320") { return iconUrl.contains("day") ? "13d" : "13n" }
-        if iconUrl.contains("323") { return iconUrl.contains("day") ? "13d" : "13n" }
-        if iconUrl.contains("326") { return iconUrl.contains("day") ? "13d" : "13n" }
-        if iconUrl.contains("329") { return iconUrl.contains("day") ? "13d" : "13n" }
-        if iconUrl.contains("332") { return iconUrl.contains("day") ? "13d" : "13n" }
-        if iconUrl.contains("335") { return iconUrl.contains("day") ? "13d" : "13n" }
-        if iconUrl.contains("338") { return iconUrl.contains("day") ? "13d" : "13n" }
-        if iconUrl.contains("350") { return iconUrl.contains("day") ? "13d" : "13n" }
-        if iconUrl.contains("368") { return iconUrl.contains("day") ? "13d" : "13n" }
-        if iconUrl.contains("371") { return iconUrl.contains("day") ? "13d" : "13n" }
-        if iconUrl.contains("386") { return iconUrl.contains("day") ? "11d" : "11n" }
-        if iconUrl.contains("389") { return iconUrl.contains("day") ? "11d" : "11n" }
-        if iconUrl.contains("392") { return iconUrl.contains("day") ? "11d" : "11n" }
-        if iconUrl.contains("395") { return iconUrl.contains("day") ? "11d" : "11n" }
+        let isDay = iconUrl.contains("day")
         
+        if iconUrl.contains("113") {
+            return isDay ? "01d" : "01n"
+        }
+        
+        if iconUrl.contains("116") {
+            return isDay ? "02d" : "02n"
+        }
+        
+        if iconUrl.contains("119") || iconUrl.contains("122") {
+            if iconUrl.contains("122") {
+                return isDay ? "04d" : "04n"
+            } else {
+                return isDay ? "03d" : "03n"
+            }
+        }
+        
+        if iconUrl.contains("143") || iconUrl.contains("248") || iconUrl.contains("260") {
+            return isDay ? "50d" : "50n"
+        }
+        
+        if iconUrl.contains("293") || iconUrl.contains("296") || iconUrl.contains("299") || iconUrl.contains("302") || iconUrl.contains("305") || iconUrl.contains("308") {
+            return isDay ? "10d" : "10n"
+        }
+        
+        if iconUrl.contains("176") || iconUrl.contains("311") || iconUrl.contains("314") || iconUrl.contains("317") {
+            return isDay ? "09d" : "09n"
+        }
+        
+        if iconUrl.contains("320") || iconUrl.contains("323") || iconUrl.contains("326") || iconUrl.contains("329") || iconUrl.contains("332") || iconUrl.contains("335") || iconUrl.contains("338") || iconUrl.contains("350") || iconUrl.contains("368") || iconUrl.contains("371") {
+            return isDay ? "13d" : "13n"
+        }
+        
+        if iconUrl.contains("386") || iconUrl.contains("389") || iconUrl.contains("392") || iconUrl.contains("395") {
+            return isDay ? "11d" : "11n"
+        }
+        
+        print("Неизвестная иконка WeatherAPI: \(iconUrl)")
         return "unknown"
     }
     

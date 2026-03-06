@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController {
         tabBar.backgroundColor = .clear
         tabBar.tintColor = .black
         tabBar.alpha = 0.3
-        tabBar.unselectedItemTintColor = .specialGray
+        tabBar.unselectedItemTintColor = .white
         tabBar.layer.borderColor = UIColor.specialGray.cgColor
         tabBar.layer.borderWidth = 0.2
     }

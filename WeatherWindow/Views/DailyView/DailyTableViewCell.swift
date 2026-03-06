@@ -16,7 +16,7 @@ class DailyTableViewCell: UITableViewCell {
     
     private var dayLabel: UILabel = {
         let label = UILabel()
-        label.font = .RobotoThinItalic18()
+        label.font = .RobotoThinItalic(25)
         label.textAlignment = .left
         label.textColor = .specialText
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +32,7 @@ class DailyTableViewCell: UITableViewCell {
     private var maxLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .robotoBold20()
+        label.font = .robotoBold(20)
         label.textAlignment = .right
         label.textColor = .specialText
         return label
@@ -41,7 +41,7 @@ class DailyTableViewCell: UITableViewCell {
     private var minLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .robotoBold18()
+        label.font = .robotoBold(20)
         label.textAlignment = .right
         label.textColor = .specialGray
         return label
@@ -85,30 +85,21 @@ class DailyTableViewCell: UITableViewCell {
             blurEffectView.topAnchor.constraint(equalTo: topAnchor),
             blurEffectView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blurEffectView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
+            blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
+     
             dayLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             dayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
-            dayLabel.widthAnchor.constraint(equalToConstant: 120),
-            dayLabel.heightAnchor.constraint(equalToConstant: 18)
-        ])
-        
-        NSLayoutConstraint.activate([
+            dayLabel.heightAnchor.constraint(equalToConstant: 18),
+      
             weatherImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             weatherImageView.trailingAnchor.constraint(equalTo: maxLabel.leadingAnchor, constant: -18),
             weatherImageView.widthAnchor.constraint(equalToConstant: 30),
-            weatherImageView.heightAnchor.constraint(equalToConstant: 30)
-        ])
-        
-        NSLayoutConstraint.activate([
+            weatherImageView.heightAnchor.constraint(equalToConstant: 30),
+    
             minLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             minLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -18),
-            minLabel.widthAnchor.constraint(equalToConstant: 45)
-        ])
-        
-        NSLayoutConstraint.activate([
+            minLabel.widthAnchor.constraint(equalToConstant: 45),
+      
             maxLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             maxLabel.trailingAnchor.constraint(equalTo: minLabel.leadingAnchor, constant: -8),
             maxLabel.widthAnchor.constraint(equalToConstant: 45)

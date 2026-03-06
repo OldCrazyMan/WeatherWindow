@@ -46,11 +46,9 @@
 		4CF3986E283A4C6A00E0DA35 /* DailyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3986C283A4C6A00E0DA35 /* DailyTableViewCell.swift */; };
 		4CF3986F283A4C6A00E0DA35 /* DailyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3986D283A4C6A00E0DA35 /* DailyTableView.swift */; };
 		4CF39882283A511B00E0DA35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3987C283A511A00E0DA35 /* AppDelegate.swift */; };
-		4CF39883283A511B00E0DA35 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3987D283A511A00E0DA35 /* API.swift */; };
 		4CF39884283A511B00E0DA35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3987E283A511A00E0DA35 /* SceneDelegate.swift */; };
 		4CF39885283A511B00E0DA35 /* WeatherModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF3987F283A511A00E0DA35 /* WeatherModels.swift */; };
 		4CF39886283A511B00E0DA35 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF39880283A511B00E0DA35 /* WeatherResponse.swift */; };
-		4CF39887283A511B00E0DA35 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF39881283A511B00E0DA35 /* NetworkRequest.swift */; };
 		4CF39893283A527700E0DA35 /* UIColor + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF39892283A527700E0DA35 /* UIColor + Extensions.swift */; };
 		4CF39895283A528900E0DA35 /* ViewController + AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF39894283A528900E0DA35 /* ViewController + AlertController.swift */; };
 		4CF39898283A52AA00E0DA35 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CF39896283A52AA00E0DA35 /* Roboto-Bold.ttf */; };
@@ -100,11 +98,9 @@
 		4CF3986C283A4C6A00E0DA35 /* DailyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTableViewCell.swift; sourceTree = "<group>"; };
 		4CF3986D283A4C6A00E0DA35 /* DailyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTableView.swift; sourceTree = "<group>"; };
 		4CF3987C283A511A00E0DA35 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4CF3987D283A511A00E0DA35 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		4CF3987E283A511A00E0DA35 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4CF3987F283A511A00E0DA35 /* WeatherModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModels.swift; sourceTree = "<group>"; };
 		4CF39880283A511B00E0DA35 /* WeatherResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
-		4CF39881283A511B00E0DA35 /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		4CF39892283A527700E0DA35 /* UIColor + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + Extensions.swift"; sourceTree = "<group>"; };
 		4CF39894283A528900E0DA35 /* ViewController + AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController + AlertController.swift"; sourceTree = "<group>"; };
 		4CF39896283A52AA00E0DA35 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
@@ -193,8 +189,6 @@
 			isa = PBXGroup;
 			children = (
 				4CF842992F59EAD2009293A9 /* NetworkService.swift */,
-				4CF3987D283A511A00E0DA35 /* API.swift */,
-				4CF39881283A511B00E0DA35 /* NetworkRequest.swift */,
 				4C90FD4C283BA95900D86B72 /* NetworkManager.swift */,
 			);
 			path = Network;
@@ -321,7 +315,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					4C64E222283A4AAF00776A5C = {
 						CreatedOnToolsVersion = 13.3.1;
@@ -388,7 +382,6 @@
 				4CF39882283A511B00E0DA35 /* AppDelegate.swift in Sources */,
 				4CF39886283A511B00E0DA35 /* WeatherResponse.swift in Sources */,
 				4C40DC2D283A925500D6CB27 /* MainTabBarController.swift in Sources */,
-				4CF39887283A511B00E0DA35 /* NetworkRequest.swift in Sources */,
 				4CE8F596283C03C1001176F8 /* UIView + Extensions.swift in Sources */,
 				4CF39893283A527700E0DA35 /* UIColor + Extensions.swift in Sources */,
 				4C40DC31283A999700D6CB27 /* SecondWeatherView.swift in Sources */,
@@ -407,7 +400,6 @@
 				4CF39884283A511B00E0DA35 /* SceneDelegate.swift in Sources */,
 				4CF3986F283A4C6A00E0DA35 /* DailyTableView.swift in Sources */,
 				4C64E24A283A4C0400776A5C /* WeatherInteractor.swift in Sources */,
-				4CF39883283A511B00E0DA35 /* API.swift in Sources */,
 				4CF3986B283A4C5500E0DA35 /* HourlyCollectionViewCell.swift in Sources */,
 				4C40DC2F283A95AA00D6CB27 /* SecondWeatherViewController.swift in Sources */,
 			);
@@ -461,8 +453,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = SQPM757FFZ;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -482,6 +476,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -521,8 +516,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = SQPM757FFZ;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -535,6 +532,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -548,7 +546,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SQPM757FFZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherWindow/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -576,7 +573,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SQPM757FFZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherWindow/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

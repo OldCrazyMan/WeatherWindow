@@ -52,7 +52,7 @@ class HourlyCollectionView: UICollectionView, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = (bounds.size.width - 50) / 4
+        let width: CGFloat = (bounds.size.width - 45) / 4
         let height: CGFloat = 140
         return CGSize(width: width, height: height)
     }
